@@ -41,7 +41,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/setLang/{locale}', function ($locale) {
-    Session::put('locale', $locale); 
+    Session::put('locale', $locale);
     return back();
 })->name('setlang');
 
@@ -52,12 +52,13 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::resource('/user', UserController::class)->except('create', 'show', 'edit');
     Route::post('/user/destroy-bulk', [UserController::class, 'destroyBulk'])->name('user.destroy-bulk');
-    
+
     Route::resource('/role', RoleController::class)->except('create', 'show', 'edit');
     Route::post('/role/destroy-bulk', [RoleController::class, 'destroyBulk'])->name('role.destroy-bulk');
 
     Route::resource('/permission', PermissionController::class)->except('create', 'show', 'edit');
     Route::post('/permission/destroy-bulk', [PermissionController::class, 'destroyBulk'])->name('permission.destroy-bulk');
+    require __DIR__ . '/brive.php';
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
